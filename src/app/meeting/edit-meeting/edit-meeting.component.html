@@ -1,0 +1,69 @@
+<div class="container">
+  <div class="card mx-auto col-6" style="width: 45rem;">
+    <div class="card-header card bg-secondary text-center text-info">
+      Edit Meeting
+    </div>
+    <div class="card-body">
+      <form #editMeetingForm="ngForm">
+        <div class="form-group">
+          <label>Meeting Name</label>
+          <input type="text" required [(ngModel)]="editDetails.meetingName" #meeting_Name="ngModel" [class.is-invalid]="meeting_Name.invalid && meeting_Name.touched"
+            class="form-control form-control-sm" name="meeting_Name" ngModel>
+          <small class="text-danger" [class.d-none]="meeting_Name.valid || meeting_Name.untouched">Meeting Name Is
+            Required</small>
+        </div>
+        <div class="form-group">
+          <label>Meeting Agenda</label>
+          <textarea required [(ngModel)]="editDetails.agenda" #_agenda="ngModel" [class.is-invalid]="_agenda.invalid && _agenda.touched"
+            class="form-control form-control-sm" rows="1" name="_agenda" ngModel></textarea>
+          <small class="text-danger" [class.d-none]="_agenda.valid || _agenda.untouched">Meeting Agenda
+            Required</small>
+          </div>
+        <div class="form-group">
+          <label>Attendee List</label>
+          <ng-multiselect-dropdown [placeholder]="'Select Attendees'" name="selectedItems" [data]="dropdownList"
+            [(ngModel)]="selectedItems" [settings]="dropdownSettings">
+          </ng-multiselect-dropdown>
+        </div>
+        <div class="form-group">
+          <label for="date">Date</label>
+          <input id="date" type="text" required [(ngModel)]="editDetails.startTime" #_date="ngModel" [class.is-invalid]="_date.invalid && _date.touched"
+            bsDatepicker [bsConfig]="datepickerConfig" class="form-control form-control-sm" name="_date" ngModel />
+          <small class="text-danger" [class.d-none]="_date.valid || _date.untouched">Date Required</small>
+        </div>
+        <div class="form-group">
+          <table>
+            <td class="col-md-1">
+              <div><label for="startTime">Start Time</label>
+                <timepicker name="startTime" [showMeridian]="isMeridian" required [(ngModel)]="editDetails.startTime" #start_Time="ngModel" [class.is-invalid]="start_Time.invalid && start_Time.touched"
+                  ngModel></timepicker>
+                <small class="text-danger" [class.d-none]="start_Time.valid || start_Time.untouched">Start Time
+                  Required</small>
+              </div>
+            </td>
+            <td class="col-md-1">
+              <div style="position:absolute; left:-150px;">
+                <label for="endTime">End Time</label>
+                <timepicker name="endTime" [showMeridian]="isMeridian" required [(ngModel)]="editDetails.endTime" #end_Time="ngModel" (click)="formatTime()" [class.is-invalid]="end_Time.invalid && end_Time.touched"
+                  ngModel></timepicker>
+                <small class="text-danger" [class.d-none]="end_Time.valid || end_Time.untouched">End Time Required</small>
+              </div>
+            </td>
+          </table>
+        </div>
+        <div class="form-group">
+          <select required [(ngModel)]="editDetails.roomId" #room_Name="ngModel" [class.is-invalid]="room_Name.invalid && room_Name.touched"
+            class="custom-select" name="room_Name" ngModel>
+            <option>{{editDetails.roomName}}</option>
+            <option *ngFor="let rooms of rooms" [value]="rooms.roomId">{{ rooms.roomName }}</option>
+          </select>
+          <small class="text-danger" [class.d-none]="room_Name.valid || room_Name.untouched">Please Select Room Name</small>
+        </div>
+      </form>
+    </div>
+    <div class="card-footer bg-secondary text-center">
+      <button class="btn btn-danger mr-4" type="submit" [routerLink]="['/meeting/meeting-list']">Back</button>
+      <button class="btn btn-primary" type="submit" [disabled]=editMeetingForm.invalid (click)="onSubmitButtonClicked()">Submit</button>
+    </div>
+  </div>
+</div>

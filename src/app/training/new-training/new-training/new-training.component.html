@@ -1,0 +1,60 @@
+<div class="container">
+  <div class="card mx-auto col-6 " style="width: 45rem;">
+    <div class="card-header card bg-secondary text-center text-info"> Create New Training </div>
+    <div class="card-body">
+      <form #newTrainingForm="ngForm">
+        <div class="form-group">
+          <label>Topic Name</label>
+          <input type="text" required [(ngModel)]="trainingData.topic" #topic_Name="ngModel" [class.is-invalid]="topic_Name.invalid && topic_Name.touched"
+            class="form-control form-control-sm" name="topic_Name" ngModel>
+          <small class="text-danger" [class.d-none]="topic_Name.valid || topic_Name.untouched">Topic Name Is Required</small>
+        </div>
+        <div class="form-group">
+          <label>Summary About Session</label>
+          <textarea required [(ngModel)]="trainingData.description" #_description="ngModel" [class.is-invalid]="_description.invalid && _description.touched"
+            class="form-control form-control-sm" rows="2" name="_description" ngModel></textarea>
+          <small class="text-danger" [class.d-none]="_description.valid || _description.untouched">Summary</small>
+        </div>
+        <div class="form-group">
+          <label for="date">Date</label>
+          <input id="date" type="text" required [(ngModel)]="trainingData.date" #_date="ngModel" [class.is-invalid]="_date.invalid && _date.touched"
+            bsDatepicker [bsConfig]="datepickerConfig" class="form-control form-control-sm" name="_date" ngModel />
+          <small class="text-danger" [class.d-none]="_date.valid || _date.untouched">Date Required</small>
+        </div>
+        <div class="form-group">
+          <table>
+            <td class="col-md-1">
+              <div>
+                <label for="startTime">Start Time</label>
+                <timepicker name="start_Time" [showMeridian]="isMeridian" required [(ngModel)]="trainingData.startTime" #start_Time="ngModel" [class.is-invalid]="start_Time.invalid && start_Time.touched"
+                  ngModel></timepicker>
+                <small class="text-danger" [class.d-none]="start_Time.valid || start_Time.untouched">Start Time
+                  Required</small>
+              </div>
+            </td>
+            <td class="col-md-1">
+              <div style="position:absolute; left:-150px;">
+                <label for="endTime">End Time</label>
+                <timepicker name="end_Time" [showMeridian]="isMeridian" required [(ngModel)]="trainingData.endTime" (click)="formatTime()" #end_Time="ngModel" [class.is-invalid]="end_Time.invalid && end_Time.touched"
+                  ngModel></timepicker>
+                <small class="text-danger" [class.d-none]="end_Time.valid || end_Time.untouched">End Time Required</small>
+              </div>
+            </td>
+          </table>
+        </div>
+        <div class="form-group">
+          <select required [(ngModel)]="trainingData.roomName" [disabled]="roomlist" #room_Name="ngModel" [class.is-invalid]="room_Name.invalid && room_Name.touched"
+            class="custom-select" name="room_Name" ngModel>
+            <option value="">Room Name</option>
+            <option *ngFor="let rooms of rooms" [value]="rooms.roomId">{{ rooms.roomName }}</option>
+          </select>
+          <small class="text-danger" [class.d-none]="room_Name.valid || room_Name.untouched">Please Select Room Name</small>
+        </div>
+      </form>
+    </div>
+    <div class="card-footer bg-secondary text-center">
+      <button class="btn btn-danger mr-4" type="submit" [routerLink]="['/training']">Back</button>
+      <button class="btn btn-primary" type="submit" [disabled]=newTrainingForm.invalid (click)="onCreateNewTrainingButtonClicked()">Submit</button>
+    </div>
+  </div>
+</div>

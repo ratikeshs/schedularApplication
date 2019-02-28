@@ -1,0 +1,13 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand">Schedular-App</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse"></button>
+    <button class="btn btn-outline-info mr-2" *ngIf="authenticationService.loggedIn()" [routerLink]="['/training']">Training</button>
+    <button class="btn btn-outline-info mr-2" *ngIf="authenticationService.loggedIn()" [routerLink]="['/meeting/list']">Meeting</button>
+    <button class="btn btn-outline-info mr-2" *ngIf="!authenticationService.loggedIn()" [routerLink]="['/authentication/login']">Log in</button>
+    <button class="btn btn-outline-info mr-2" *ngIf="!authenticationService.loggedIn()" [routerLink]="['/authentication/registration']">Registration</button>
+    <button class="btn btn-outline-info mr-2 float-right" *ngIf="authenticationService.loggedIn()" (click)="authenticationService.logoutUser()">Logout</button>
+    
+    <!-- <button class="btn btn-outline-info mr-2" [routerLink]="['/authentication/forgot-password']">Forgot password</button> -->
+    <!-- <button class="btn btn-outline-info mr-2" [routerLink]="['/authentication/reset-password']">Reset password</button> -->
+</nav>
+<router-outlet></router-outlet>

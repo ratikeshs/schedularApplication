@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="mt-2 float-right">
+    <button type="button" class="btn btn-outline-info mb-2" [routerLink]="['/meeting/new-meeting']">New Meeting</button>
+  </div>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Meeting Name</th>
+      <th scope="col">Organizer Name</th>
+      <th scope="col">Date</th>
+      <th scope="col">Start Time</th>
+      <th scope="col">End Time</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let meeting of meetings">
+      <td>{{meeting.meetingName}}</td>
+      <td>{{meeting.organiserName}}</td>
+      <td>{{meeting.startTime | date}}</td>
+      <td>{{meeting.startTime | date: 'HH:MM'}}</td>
+      <td>{{meeting.endTime | date: 'HH:MM'}}</td>
+      <button class="btn btn-sm btn-outline-warning mr-1" (click)="onEditMeetingButtonClicked(meeting.meetingId)">Edit</button>
+      <button class="btn btn-sm btn-outline-info mr-1" (click)="onDetailsMeetingButtonClicked(meeting.meetingId)">Details</button>
+      <button type="button" class="btn btn-sm btn-outline-danger" (click)="onDeleteMeetingButtonClicked(meeting.meetingId)">Delete</button>
+    </tr>
+  </tbody>
+</table>

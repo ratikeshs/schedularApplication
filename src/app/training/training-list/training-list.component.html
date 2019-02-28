@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="mt-2 float-right">
+    <button type="button" class="btn btn-outline-info mb-2" [routerLink]="['/new-training/new']">New Training</button>
+  </div>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Topic Name</th>
+      <th scope="col">Trainer Name</th>
+      <th scope="col">Date</th>
+      <th scope="col">Start Time</th>
+      <th scope="col">End Time</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let training of trainings">
+      <td>{{training.topic}}</td>
+      <td>{{training.trainerName}}</td>
+      <td>{{training.startTime | date: 'yyyy/MM/dd'}}</td>
+      <td>{{training.startTime | date: 'HH:MM'}}</td>
+      <td>{{training.endTime | date: 'HH:MM'}}</td>
+      <button class="btn btn-sm btn-outline-warning mr-1" (click)="onEditTrainingButtonClicked(training.trainingId)">Edit</button>
+      <button class="btn-sm btn btn-outline-info mr-1" (click)="onDetailsTrainingButtonClicked(training.trainingId)">Details</button>
+      <button type="button" class="btn btn-sm btn-outline-danger mr-1" (click)="onDeleteTrainingButtonClicked(training.trainingId)">Delete</button>
+    </tr>
+  </tbody>
+</table>

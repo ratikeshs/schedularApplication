@@ -1,0 +1,51 @@
+<body>
+  <div class="signup-form">
+    <form #userRegistrationForm="ngForm">
+      <h2>Register</h2>
+      <p class="hint-text">Create your account</p>
+      <div class="form-group">
+        <div class="row">
+          <div class="col-md-6">
+            <input type="text" required #firstName="ngModel" [class.is-invalid]="firstName.invalid && firstName.touched"
+              class="form-control" [(ngModel)]="user.firstName" name="firstName" placeholder="First Name" >
+            <small class="text-danger" [class.d-none]="firstName.valid || firstName.untouched">First Name Required</small>
+          </div>
+          <div class="col-md-6">
+            <input type="text" required #lastName="ngModel" [class.is-invalid]="lastName.invalid && lastName.touched"
+              class="form-control" [(ngModel)]="user.lastName" name="lastName" placeholder="Last Name" >
+            <small class="text-danger" [class.d-none]="lastName.valid || lastName.untouched">Last Name Required</small>
+          </div>
+        </div>
+      </div>
+      <div class="form-group" [class.has-error]="email.invalid && email.touched">
+        <input id="email" required pattern="^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(asd)\.com$ " name="email"
+          #email="ngModel" [(ngModel)]="user.email" type="email" class="form-control" placeholder="Email">
+        <small class="help-block" class="text-danger" *ngIf="email.errors?.required && email.touched">Email Required</small>
+        <small class="text-danger" *ngIf="email.errors?.email && email.touched">Invalid Email</small>
+      </div>
+      <div ngMdelGroup="passwordGroup" [class.has-error]="confirmPassword.touched && confirmPassword.invalid">
+        <div class="form-group" [class.has-error]="password.touched && password.invalid">
+          <input name="password" required type="password" class="form-control" (input)="confirmPassword.control.updateValueAndValidity()"
+            [(ngModel)]="user.password" #password="ngModel" placeholder="Password">
+          <small class="help-block" class="text-danger" *ngIf="password.touched && password.errors?.required">Password
+            is required</small>
+        </div>
+        <div class="form-group" [class.has-error]="confirmPassword.touched && confirmPassword.invalid">
+          <input name="confirmPassword" appConfirmEqualValidator="password"  type="password" class="form-control"
+            [(ngModel)]="user.confirmPassword" #confirmPassword="ngModel" placeholder="Confirm Password">
+          <small class="help-block" class="text-danger" *ngIf="confirmPassword.touched && confirmPassword.errors?.required">Confirm
+            password is required</small>
+          <small class="help-block" class="text-danger" *ngIf="confirmPassword.touched && confirmPassword.errors?.notEqual && !confirmPassword.errors?.required">Password
+            and confirm password must match</small>
+        </div>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-success btn-lg btn-block"  (click)="onRegisterButtonClicked()">Register Now</button>   
+      </div>
+    </form>
+    <div class="text-center">
+      Already have an account?
+      <a class="text-primary" href="/authentication/login">Please Log in</a>
+    </div>
+  </div>
+</body>
